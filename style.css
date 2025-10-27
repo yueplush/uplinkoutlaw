@@ -1,0 +1,77 @@
+body {
+    background-color: #415a5b;
+    color: #00FF00; /* Green text */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    line-height: 1.4;
+    padding: 20px;
+}
+
+#ascii-art {
+    color: #00FF00; /* Green accent */
+    font-size: 10px;
+}
+
+pre {
+    white-space: pre;
+}
+
+a {
+    color: #00FF00; /* Green accent */
+    text-decoration: none;
+}
+
+a:hover {
+    background-color: #00FF00;
+    color: #415a5b;
+}
+
+nav {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    border-bottom: 1px solid #00FF00;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    color: #00FF00; /* Green header text */
+}
+
+.cursor {
+    display: inline-block;
+    width: 10px;
+    height: 16px;
+    background-color: #00FF00;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    from, to {
+        background-color: transparent;
+    }
+    50% {
+        background-color: #00FF00;
+    }
+}
+
+section {
+    display: none;
+}
+
+section:target {
+    display: block;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+        font-size: 14px;
+    }
+    #ascii-art {
+        font-size: 8px;
+    }
+    pre {
+        overflow-x: auto;
+    }
+}
