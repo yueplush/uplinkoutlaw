@@ -1,37 +1,45 @@
 /* ===================================
-   CRT + CYBER GREEN THEME (NO JS)
-   Project: Uplink Outlaw
-   Fully separated CSS
+   CSS ONLY — copy of the original palette & CRT design
+   (No content changes. HTML is assumed unchanged.)
    =================================== */
+
+/* ---------- Palette (trust-blue / deep purple CRT) ---------- */
 :root {
-  --bg: #000000;            /* terminal black */
-  --text: #00FF66;          /* primary green */
-  --text-strong: #00FF99;   /* bright accent */
-  --text-dim: #33CC66;      /* secondary tone */
-  --link: #00FF66;          /* link color */
-  --link-hover-bg: #00FF66; /* hover invert */
+  --bg: #0b0017;            /* deep purple-black */
+  --bg-accent: #1a0030;     /* inner vignette */
+  --text: #b7f4ff;          /* cyan body text */
+  --text-strong: #d7fbff;   /* brighter cyan for headings / emphasis */
+  --text-dim: #89d9e8;      /* soft cyan */
+  --link: #7fe9ff;          /* link color */
+  --link-hover-bg: #7fe9ff; /* invert on hover */
+  --rule: #57c9ff;          /* section underline */
 }
 
 /* ---------- Base ---------- */
-body.theme-crt.trust-blue {
-  background-color: var(--bg);
-  color: var(--text);
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 16px;
-  line-height: 1.5;
-  padding: 20px;
+* { box-sizing: border-box; }
 
-  /* soft glow outline for terminal vibe */
+html, body { height: 100%; }
+
+body.theme-crt.trust-blue {
+  margin: 0;
+  background:
+    radial-gradient(1200px 700px at 50% 0%, var(--bg-accent) 0%, var(--bg) 65%, #000 100%);
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 24px;
   letter-spacing: 0.01em;
-  -webkit-font-smoothing: none;
-  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  /* cyan glow */
   text-shadow:
-    0 0 2px rgba(0, 255, 102, 0.85),
-    0 0 6px rgba(0, 255, 102, 0.50),
-    0 0 10px rgba(0, 255, 102, 0.25);
+    0 0 2px rgba(127, 233, 255, 0.55),
+    0 0 6px rgba(127, 233, 255, 0.35);
 }
 
-/* CRT scanlines + subtle vignette */
+/* CRT scanlines + subtle bloom overlay */
 body.theme-crt.trust-blue::before {
   content: "";
   position: fixed;
@@ -40,51 +48,61 @@ body.theme-crt.trust-blue::before {
   background:
     repeating-linear-gradient(
       to bottom,
-      rgba(255, 255, 255, 0.02) 0px,
-      rgba(255, 255, 255, 0.02) 1px,
+      rgba(255, 255, 255, 0.03) 0px,
+      rgba(255, 255, 255, 0.03) 1px,
       transparent 2px,
       transparent 4px
     ),
-    radial-gradient(ellipse at center, rgba(0, 255, 102, 0.05), transparent 60%);
+    radial-gradient(ellipse at center, rgba(127, 233, 255, 0.08), transparent 60%);
   mix-blend-mode: screen;
-  opacity: 0.15;
+  opacity: 0.18;
+  z-index: 0;
 }
 
-/* Accessibility: reduce animation if requested */
+/* reduce effects if user prefers */
 @media (prefers-reduced-motion: reduce) {
-  body.theme-crt.trust-blue::before { opacity: 0; }
+  body.theme-crt.trust-blue::before { opacity: 0.08; }
   .cursor { animation: none; }
 }
 
-/* ---------- ASCII Art ---------- */
-#ascii-art {
+/* ---------- Headings / text ---------- */
+h1, h2, h3 {
   color: var(--text-strong);
-  font-size: 10px;
   text-shadow:
-    0 0 3px rgba(0, 255, 102, 0.80),
-    0 0 6px rgba(0, 255, 102, 0.60),
-    0 0 12px rgba(0, 255, 102, 0.35);
+    0 0 3px rgba(127, 233, 255, 0.85),
+    0 0 10px rgba(127, 233, 255, 0.35);
+  margin: 0 0 8px 0;
 }
 
-/* preserve spacing for art */
-pre { white-space: pre; }
+h2 {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 4px;
+}
 
-/* ---------- Links (if added later) ---------- */
+p { margin: 0 0 10px 0; }
+.small { font-size: 0.9em; color: var(--text-dim); }
+
+/* ---------- Links ---------- */
 a {
   color: var(--link);
   text-decoration: none;
-  text-shadow:
-    0 0 3px rgba(0, 255, 102, 0.80),
-    0 0 6px rgba(0, 255, 102, 0.50),
-    0 0 12px rgba(0, 255, 102, 0.30);
+  padding: 0 2px;
+  border-radius: 3px;
   transition: background-color 0.15s linear, color 0.15s linear, box-shadow 0.15s linear;
+  text-shadow:
+    0 0 3px rgba(127, 233, 255, 0.8),
+    0 0 8px rgba(127, 233, 255, 0.35);
 }
 
 a:hover,
 a:focus-visible {
   background-color: var(--link-hover-bg);
-  color: var(--bg);
-  box-shadow: 0 0 12px rgba(0, 255, 102, 0.90);
+  color: #001018;
+  box-shadow: 0 0 12px rgba(127, 233, 255, 0.9);
   text-shadow: none;
   outline: none;
 }
@@ -95,20 +113,45 @@ a:focus-visible {
   outline-offset: 3px;
 }
 
-/* text selection */
-::selection {
-  background: rgba(0, 255, 102, 0.30);
-  color: #EFFFF6;
+/* ---------- ASCII Art ---------- */
+#ascii-art,
+pre[aria-label*="ASCII"] {
+  margin: 10px 0 18px 0;
+  color: var(--text-strong);
+  font-size: 10px;
+  white-space: pre;
+  text-shadow:
+    0 0 3px rgba(127, 233, 255, 0.8),
+    0 0 10px rgba(127, 233, 255, 0.45),
+    0 0 16px rgba(127, 233, 255, 0.25);
+  overflow-x: auto;
 }
+
+/* ---------- Section switching exactly like original ---------- */
+/* NOTE: keep initial state blank until a :target exists */
+section { display: none; }
+section:target { display: block; }
+
+/* ---------- Lists ---------- */
+.link-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+}
+.link-list li { margin: 4px 0; }
+.link-list a { display: inline-block; }
 
 /* ---------- Blinking Cursor ---------- */
 .cursor {
-  display: inline-block;
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
   width: 10px;
   height: 16px;
   background-color: var(--text-strong);
   animation: blink 1s step-end infinite;
-  box-shadow: 0 0 10px rgba(0, 255, 102, 0.80);
+  box-shadow: 0 0 10px rgba(127, 233, 255, 0.8);
+  z-index: 1;
 }
 
 @keyframes blink {
@@ -116,16 +159,12 @@ a:focus-visible {
   50% { opacity: 1; }
 }
 
-/* ---------- Optional: Section switching (not used here) ---------- */
-section { display: none; }
-section:target { display: block; }
-
 /* ---------- Responsive ---------- */
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   body.theme-crt.trust-blue {
-    padding: 10px;
-    font-size: 14px;
+    font-size: 15px;
+    padding: 16px;
   }
-  #ascii-art { font-size: 8px; }
-  pre { overflow-x: auto; }
+  #ascii-art,
+  pre[aria-label*="ASCII"] { font-size: 8px; }
 }
