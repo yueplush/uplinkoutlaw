@@ -1,15 +1,15 @@
 /* ===================================
    CRT + CYBER GREEN THEME (NO JS)
-   For "Uplink Outlaw" — Terminal Aesthetic
-   Background unified: #000000
+   Project: Uplink Outlaw
+   Fully separated CSS
    =================================== */
 :root {
-  --bg: #000000;              /* dark terminal base */
-  --text: #00FF66;            /* vivid green text */
-  --text-strong: #00FF99;     /* brighter accent */
-  --text-dim: #33CC66;        /* softer secondary tone */
-  --link: #00FF66;            /* link color */
-  --link-hover-bg: #00FF66;   /* hover background */
+  --bg: #000000;            /* terminal black */
+  --text: #00FF66;          /* primary green */
+  --text-strong: #00FF99;   /* bright accent */
+  --text-dim: #33CC66;      /* secondary tone */
+  --link: #00FF66;          /* link color */
+  --link-hover-bg: #00FF66; /* hover invert */
 }
 
 /* ---------- Base ---------- */
@@ -20,16 +20,18 @@ body.theme-crt.trust-blue {
   font-size: 16px;
   line-height: 1.5;
   padding: 20px;
+
+  /* soft glow outline for terminal vibe */
   letter-spacing: 0.01em;
   -webkit-font-smoothing: none;
   text-rendering: geometricPrecision;
   text-shadow:
     0 0 2px rgba(0, 255, 102, 0.85),
-    0 0 6px rgba(0, 255, 102, 0.5),
+    0 0 6px rgba(0, 255, 102, 0.50),
     0 0 10px rgba(0, 255, 102, 0.25);
 }
 
-/* CRT flicker / scanline effect */
+/* CRT scanlines + subtle vignette */
 body.theme-crt.trust-blue::before {
   content: "";
   position: fixed;
@@ -48,7 +50,7 @@ body.theme-crt.trust-blue::before {
   opacity: 0.15;
 }
 
-/* Reduce motion */
+/* Accessibility: reduce animation if requested */
 @media (prefers-reduced-motion: reduce) {
   body.theme-crt.trust-blue::before { opacity: 0; }
   .cursor { animation: none; }
@@ -59,21 +61,22 @@ body.theme-crt.trust-blue::before {
   color: var(--text-strong);
   font-size: 10px;
   text-shadow:
-    0 0 3px rgba(0, 255, 102, 0.8),
-    0 0 6px rgba(0, 255, 102, 0.6),
+    0 0 3px rgba(0, 255, 102, 0.80),
+    0 0 6px rgba(0, 255, 102, 0.60),
     0 0 12px rgba(0, 255, 102, 0.35);
 }
 
+/* preserve spacing for art */
 pre { white-space: pre; }
 
-/* ---------- Links ---------- */
+/* ---------- Links (if added later) ---------- */
 a {
   color: var(--link);
   text-decoration: none;
   text-shadow:
-    0 0 3px rgba(0, 255, 102, 0.8),
-    0 0 6px rgba(0, 255, 102, 0.5),
-    0 0 12px rgba(0, 255, 102, 0.3);
+    0 0 3px rgba(0, 255, 102, 0.80),
+    0 0 6px rgba(0, 255, 102, 0.50),
+    0 0 12px rgba(0, 255, 102, 0.30);
   transition: background-color 0.15s linear, color 0.15s linear, box-shadow 0.15s linear;
 }
 
@@ -81,19 +84,31 @@ a:hover,
 a:focus-visible {
   background-color: var(--link-hover-bg);
   color: var(--bg);
-  box-shadow: 0 0 12px rgba(0, 255, 102, 0.9);
+  box-shadow: 0 0 12px rgba(0, 255, 102, 0.90);
   text-shadow: none;
   outline: none;
 }
 
-/* ---------- Cursor ---------- */
+/* keyboard focus ring */
+a:focus-visible {
+  outline: 2px dashed var(--text-strong);
+  outline-offset: 3px;
+}
+
+/* text selection */
+::selection {
+  background: rgba(0, 255, 102, 0.30);
+  color: #EFFFF6;
+}
+
+/* ---------- Blinking Cursor ---------- */
 .cursor {
   display: inline-block;
   width: 10px;
   height: 16px;
   background-color: var(--text-strong);
   animation: blink 1s step-end infinite;
-  box-shadow: 0 0 10px rgba(0, 255, 102, 0.8);
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.80);
 }
 
 @keyframes blink {
@@ -101,7 +116,7 @@ a:focus-visible {
   50% { opacity: 1; }
 }
 
-/* ---------- Section Visibility ---------- */
+/* ---------- Optional: Section switching (not used here) ---------- */
 section { display: none; }
 section:target { display: block; }
 
